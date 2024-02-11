@@ -4,7 +4,8 @@
 sudo nmcli device wifi rescan
 
 # list all available networks and get the desired columns
-nmcli -f SSID,SIGNAL device wifi list | grep -E "YahiaWalid|Sam_s*" > signals.temp#!/bin/bash
+nmcli -f SSID,SIGNAL device wifi list | grep -E "YahiaWalid|Sam_s*" | sort > signals.temp
 
-# call python script from bash script
-python3 signal2dist.py
+# format delimiters for python script
+sed -i -E 's/([a-zA-Z0-9])\s+/\1,/g' signals.temp
+sed -i -E 's/,$//g' signals.temp
