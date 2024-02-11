@@ -9,3 +9,6 @@ nmcli -f SSID,SIGNAL device wifi list | grep -E "YahiaWalid|Sam_s*" | sort > sig
 # format delimiters for python script
 sed -i -E 's/([a-zA-Z0-9])\s+/\1,/g' signals.temp
 sed -i -E 's/,$//g' signals.temp
+
+# call python script to process the data
+python3 signal2dist.py
