@@ -3,7 +3,7 @@ import csv
 import numpy as np
 from math import sqrt
 import matplotlib.pyplot as plt
-
+# hello
 # Load the training data from the CSV file
 def load_data(file_name):
     with open(file_name, 'r') as csvfile:
