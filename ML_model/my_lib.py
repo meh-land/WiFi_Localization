@@ -2,6 +2,7 @@
 import cvxpy as cp
 import numpy as np
 import csv
+from math import sqrt
 
 # Load the training data from the CSV file
 def load_data(file_name):
@@ -31,5 +32,5 @@ def MSE(A, w, x):
         curr_pose = x[i]
         predicted_pose = A @ w[i]
         pose_diff = curr_pose - predicted_pose
-        mse += pose_diff[0]**2 + pose_diff[1]**2
-    return np.sqrt(mse) / dl
+        mse += cp.norm(pose_diff)
+    return mse
