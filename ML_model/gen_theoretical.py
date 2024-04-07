@@ -1,3 +1,4 @@
+#!/bin/python3
 from math import sqrt
 from math import ceil
 import csv
@@ -26,10 +27,8 @@ def dist_to_quality(dists):
 if __name__ == "__main__":
 	# iterate over x and y to get the corresponding quality
 	rows= []
-	for x in range(0, 1001):
-		x = x/100
-		for y in range(0, 1001):
-		    y = y/100
+	for x in range(0, 11):
+		for y in range(0, 11):
 		    dists = get_dist([x, y])
 		    Q = dist_to_quality(dists)
 		    row = {'OurESP1': Q[0],
@@ -41,7 +40,7 @@ if __name__ == "__main__":
 		    rows.append(row)
 
 	# write rows in a csv file
-	file_name = 'linear.csv'
+	file_name = 'small_lin.csv'
 	with open(file_name, 'w', newline='') as csvfile:
 		fieldnames = ['OurESP1', 'OurESP2', 'OurESP3', 'x', 'y']
 		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
