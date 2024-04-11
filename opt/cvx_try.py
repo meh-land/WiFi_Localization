@@ -1,7 +1,6 @@
 #!/bin/python3
 import cvxpy as cp
 import numpy as np
-import csv
 import my_lib as ml
 
 
