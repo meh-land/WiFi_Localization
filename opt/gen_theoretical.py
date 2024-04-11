@@ -2,6 +2,7 @@
 from math import sqrt
 from math import ceil
 import csv
+import numpy as np
 
 ap1_loc = [0, 0]
 ap2_loc = [0, 10]
@@ -24,11 +25,11 @@ def dist_to_quality(dists):
 		    Q[i] = 100
 	return Q
 
-if __name__ == "__main__":
+def gen_data(N, file_name='linear.csv'):
 	# iterate over x and y to get the corresponding quality
 	rows= []
-	for x in range(0, 11):
-		for y in range(0, 11):
+	for x in np.linspace(0, 10, N):
+		for y in np.linspace(0, 10, N):
 		    dists = get_dist([x, y])
 		    Q = dist_to_quality(dists)
 		    row = {'OurESP1': Q[0],
@@ -40,7 +41,6 @@ if __name__ == "__main__":
 		    rows.append(row)
 
 	# write rows in a csv file
-	file_name = 'small_lin.csv'
 	with open(file_name, 'w', newline='') as csvfile:
 		fieldnames = ['OurESP1', 'OurESP2', 'OurESP3', 'x', 'y']
 		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
