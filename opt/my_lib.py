@@ -2,7 +2,7 @@
 import cvxpy as cp
 import numpy as np
 import csv
-from math import sqrt
+# from math import sqrt
 
 # Load the training data from the CSV file
 def load_data(file_name):
@@ -34,3 +34,19 @@ def MSE(A, w, x):
         pose_diff = curr_pose - predicted_pose
         mse += cp.norm(pose_diff)
     return mse
+
+def get_opt_mat(w,x):
+    # Define the variables
+    A = cp.Variable((2, 3))  # 2x3 matrix
+    
+    # Define the objective function
+    objective = cp.Minimize(MSE(A, w, x))
+    
+    # Formulate the problem
+    problem = cp.Problem(objective)
+    
+    # Solve the problem
+    problem.solve()
+    
+    # Get the optimal value of A
+    return A.value 
