@@ -36,6 +36,19 @@ def MSE(A, w, x):
         mse += cp.norm(pose_diff)
     return mse
 
+def MSE(A, B, w, x):
+    #Get data length (dl)
+    dl = len(w)
+
+    mse = 0
+    for i in range(dl):
+        curr_pose = x[i]
+        predicted_pose = (A @ w[i]) + B
+        pose_diff = curr_pose - predicted_pose
+        mse += cp.norm(pose_diff)
+    return mse
+
+
 def get_opt_mat(w,x):
     # Define the variables
     A = cp.Variable((2, 3))  # 2x3 matrix
@@ -51,6 +64,24 @@ def get_opt_mat(w,x):
     
     # Get the optimal value of A
     return A.value 
+
+def get_opt_AB(w,x):
+    # Define the variables
+    A = cp.Variable((2, 3))  # 2x3 matrix
+    B = cp.Variable(2)  # 2x1 vector
+    
+    # Define the objective function
+    objective = cp.Minimize(MSE(A, B, w, x))
+    
+    # Formulate the problem
+    problem = cp.Problem(objective)
+    
+    # Solve the problem
+    problem.solve()
+    
+    # Get the optimal value of A
+    return [A.value, B.value]
+
 
 def plot(x, y, xlabel="X", ylabel="Y", title="X vs Y"):
     plt.plot(x, y)

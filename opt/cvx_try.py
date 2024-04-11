@@ -7,6 +7,7 @@ import my_lib as ml
 training_data = ml.load_data('small_lin.csv')
 [w, x] = ml.format_data(training_data)
 
-A = ml.get_opt_mat(w, x)
+[A, B] = ml.get_opt_AB(w, x)
 print(A)
-print(np.linalg.norm((A @ w[0]) - x[0]))
+print(B)
+print(np.linalg.norm(((A @ w[0]) + B) - x[0]))
