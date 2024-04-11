@@ -36,6 +36,22 @@ def MSE(A, w, x):
         mse += cp.norm(pose_diff)
     return mse
 
+def err_stats(A, w, x):
+    #Get data length (dl)
+    dl = len(w)
+
+    err = []
+    for i in range(dl):
+        curr_pose = x[i]
+        predicted_pose = A @ w[i]
+        pose_diff = curr_pose - predicted_pose
+        err.append(cp.norm(pose_diff).value)
+    err = np.array(err)
+    avg_err = np.mean(err)
+    std_dev = np.std(err)
+    return [avg_err, std_dev]
+
+
 def MSE(A, B, w, x):
     #Get data length (dl)
     dl = len(w)
@@ -47,6 +63,21 @@ def MSE(A, B, w, x):
         pose_diff = curr_pose - predicted_pose
         mse += cp.norm(pose_diff)
     return mse
+
+def err_stats(A, B, w, x):
+    #Get data length (dl)
+    dl = len(w)
+
+    err = []
+    for i in range(dl):
+        curr_pose = x[i]
+        predicted_pose = (A @ w[i]) + B
+        pose_diff = curr_pose - predicted_pose
+        err.append(cp.norm(pose_diff).value)
+    err = np.array(err)
+    avg_err = np.mean(err)
+    std_dev = np.std(err)
+    return [avg_err, std_dev]
 
 
 def get_opt_mat(w,x):
