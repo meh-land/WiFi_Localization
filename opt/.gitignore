@@ -1,3 +1,4 @@
 log.*
 __*
 *.swp
+data_dir
