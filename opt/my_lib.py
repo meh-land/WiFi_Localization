@@ -52,7 +52,7 @@ def get_opt_mat(w,x):
     # Get the optimal value of A
     return A.value 
 
-def plot(x, y, xlabel="X", ylablel="Y", title="X vs Y"):
+def plot(x, y, xlabel="X", ylabel="Y", title="X vs Y"):
     plt.plot(x, y)
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
