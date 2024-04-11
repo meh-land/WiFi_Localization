@@ -2,6 +2,7 @@
 import cvxpy as cp
 import numpy as np
 import csv
+import matplotlib.pyplot as plt
 # from math import sqrt
 
 # Load the training data from the CSV file
@@ -50,3 +51,10 @@ def get_opt_mat(w,x):
     
     # Get the optimal value of A
     return A.value 
+
+def plot(x, y, xlabel="X", ylablel="Y", title="X vs Y"):
+    plt.plot(x, y)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.show()
