@@ -11,12 +11,15 @@ This function takes in a W vector and predicts the position that resulted in it
 It takes the weighted sums of the k nearest neighbors
 The weights are determined according to the distance between W and W_in (The smaller difference gets higher weight)
 '''
-def predict_pose(w_in, k=5):
+def predict_pose(w_in, k=5, filename="knn.csv"):
+    # Read data from file
+    td = ml.load_data(filename)
+    [w, x] = ml.format_data(td)
+
     w_in = np.array(w_in)
     diffs = w - w_in
     diff_norms = np.zeros(len(diffs))
-    for i in range(len(diffs)):
-        diff_norms[i] = np.linalg.norm(diffs[i])
+    diff_norms = np.linalg.norm(diffs, axis=1)
     # Get indices of the elements with the least diffs
     indices = np.argpartition(diff_norms, k)[:k]
     # Get the scaling factors that will be used in the weighted average
@@ -30,13 +33,10 @@ def predict_pose(w_in, k=5):
     prediction = nearest_points * weights[:, np.newaxis]
     # Get the weighted sum
     prediction = np.sum(prediction, axis=0)
-    print(prediction)
+    return prediction
 
 if __name__ == "__main__":
-    filename = "knn_smol.csv"
-    gt.gen_data(10, file_name=filename)
-    td = ml.load_data(filename)
-    [w, x] = ml.format_data(td)
+    gt.gen_data(10)
 
-    predict_pose([50, 50, 50])
+    predict_pose([50, 50, 50], filename="knn_smol.csv")
 
